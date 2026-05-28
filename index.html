@@ -461,23 +461,38 @@ function confirmAction() {
   const data = pendingAction;
   hideConfirm();
 
+  // Диагностика
+  const hasTg = !!tg;
+  const hasSendData = !!tg?.sendData;
+  const hasInitData = !!(tg?.initData && tg.initData.length > 0);
+  showToast('tg:' + hasTg + ' sd:' + hasSendData + ' init:' + hasInitData);
+
   if (data.action === 'search') {
     document.getElementById('queryInput').value = '';
     setStatus(data.query, 'Отправлено · ждите в чате', true);
   }
 
-  sendData(data);
+  // Небольшая задержка чтобы toast успел показаться до закрытия
+  setTimeout(() => sendData(data), 800);
 }
 
 // ── SEND DATA — единственный правильный способ ──
 function sendData(data) {
-  if (tg?.sendData) {
-    tg.sendData(JSON.stringify(data));
-    // sendData закрывает приложение — код ниже не выполнится
+  if (tg && tg.sendData) {
+    try {
+      tg.sendData(JSON.stringify(data));
+    } catch(e) {
+      showToast('Ошибка: ' + e.message);
+      console.error('sendData error:', e);
+    }
+  } else if (tg && tg.initData) {
+    // Запасной вариант: если sendData недоступен но мы в Telegram
+    // Это случается когда приложение открыто НЕ через Menu Button
+    showToast('⚠️ Открой через кнопку меню бота');
   } else {
-    // DEV режим (открыт в браузере, не в Telegram)
+    // DEV режим
     console.log('[DEV] sendData:', data);
-    showToast('DEV: ' + data.action);
+    showToast('DEV: ' + JSON.stringify(data).slice(0, 40));
   }
 }
 
