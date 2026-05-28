@@ -8,17 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #0a0608;
-    --surface:   #130d10;
-    --card:      #1c1318;
-    --border:    #3a2530;
-    --accent:    #c9396e;
-    --accent2:   #f0a3be;
-    --gold:      #d4a853;
-    --text:      #f0e8ec;
-    --muted:     #7a6070;
-    --glow:      rgba(201,57,110,0.18);
-    --glow2:     rgba(201,57,110,0.06);
+    --bg:      #0a0608;
+    --surface: #130d10;
+    --card:    #1c1318;
+    --border:  #3a2530;
+    --accent:  #c9396e;
+    --accent2: #f0a3be;
+    --gold:    #d4a853;
+    --text:    #f0e8ec;
+    --muted:   #7a6070;
+    --glow:    rgba(201,57,110,0.18);
+    --glow2:   rgba(201,57,110,0.06);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -31,7 +31,6 @@
     overflow-x: hidden;
   }
 
-  /* ── BG MESH ── */
   body::before {
     content:'';
     position:fixed; inset:0; z-index:0; pointer-events:none;
@@ -42,401 +41,151 @@
       repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(58,37,48,0.15) 40px);
   }
 
-  /* ── HEADER ── */
-  .header {
-    position: relative; z-index:10;
-    padding: 28px 20px 0;
-    text-align: center;
-  }
-  .logo-line {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 11px;
-    font-style: italic;
-    letter-spacing: 6px;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 38px;
-    font-weight: 300;
-    letter-spacing: -1px;
-    color: var(--text);
-    line-height: 1;
-  }
-  .logo span {
-    color: var(--accent);
-    font-style: italic;
-  }
-  .logo-sub {
-    font-size: 9px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
+  .header { position:relative; z-index:10; padding:28px 20px 0; text-align:center; }
+  .logo-line { font-family:'Cormorant Garamond',serif; font-size:11px; font-style:italic; letter-spacing:6px; color:var(--muted); text-transform:uppercase; margin-bottom:6px; }
+  .logo { font-family:'Cormorant Garamond',serif; font-size:38px; font-weight:300; letter-spacing:-1px; color:var(--text); line-height:1; }
+  .logo span { color:var(--accent); font-style:italic; }
+  .logo-sub { font-size:9px; letter-spacing:5px; color:var(--gold); text-transform:uppercase; margin-top:8px; }
 
-  /* ── VINYL ── */
-  .vinyl-wrap {
-    position: relative; z-index:5;
-    display: flex; justify-content:center;
-    margin: 24px 0 16px;
-  }
+  .vinyl-wrap { position:relative; z-index:5; display:flex; justify-content:center; margin:24px 0 16px; }
   .vinyl {
-    width: 140px; height: 140px;
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 50% 50%, #1a1218 0%, #0d0a0c 30%, #1e141a 50%, #0d0a0c 70%, #1a1218 100%);
-    box-shadow:
-      0 0 0 2px var(--border),
-      0 0 40px var(--glow),
-      0 8px 32px rgba(0,0,0,0.6);
-    position: relative;
-    animation: spin 8s linear infinite paused;
+    width:140px; height:140px; border-radius:50%;
+    background: radial-gradient(circle at 50% 50%, #1a1218 0%, #0d0a0c 30%, #1e141a 50%, #0d0a0c 70%, #1a1218 100%);
+    box-shadow: 0 0 0 2px var(--border), 0 0 40px var(--glow), 0 8px 32px rgba(0,0,0,0.6);
+    position:relative; animation:spin 8s linear infinite paused;
   }
-  .vinyl.spinning { animation-play-state: running; }
-  .vinyl::before {
-    content:'';
-    position:absolute; inset:0; border-radius:50%;
-    background: repeating-radial-gradient(
-      circle at 50%,
-      transparent 20px,
-      rgba(201,57,110,0.04) 21px,
-      transparent 22px
-    );
-  }
-  .vinyl::after {
-    content:'';
-    position:absolute;
-    top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    width:28px; height:28px;
-    border-radius:50%;
-    background: radial-gradient(circle, var(--accent) 0%, #8a1a3e 100%);
-    box-shadow: 0 0 12px var(--glow);
-  }
+  .vinyl.spinning { animation-play-state:running; }
+  .vinyl::before { content:''; position:absolute; inset:0; border-radius:50%; background:repeating-radial-gradient(circle at 50%, transparent 20px, rgba(201,57,110,0.04) 21px, transparent 22px); }
+  .vinyl::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:28px; height:28px; border-radius:50%; background:radial-gradient(circle, var(--accent) 0%, #8a1a3e 100%); box-shadow:0 0 12px var(--glow); }
   @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-
-  /* ── SONG DISPLAY ── */
-  .song-display {
-    position:relative; z-index:5;
-    text-align:center;
-    padding: 0 20px 16px;
-    min-height: 56px;
-  }
-  .song-title {
-    font-family:'Cormorant Garamond',serif;
-    font-size:20px; font-weight:600;
-    color:var(--text); line-height:1.2;
-    margin-bottom:4px;
-    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-  }
-  .song-status {
-    font-size:10px; letter-spacing:3px;
-    color:var(--muted); text-transform:uppercase;
-  }
-  .song-status.active { color:var(--accent2); }
-
-  /* ── INPUT ── */
-  .input-section {
-    position:relative; z-index:5;
-    padding: 0 16px 12px;
-  }
-  .input-wrap {
-    display:flex; gap:8px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:4px;
-    padding:4px 4px 4px 14px;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .input-wrap:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--glow2);
-  }
-  .input-wrap input {
-    flex:1; background:none; border:none; outline:none;
-    font-family:'Space Mono',monospace;
-    font-size:12px; color:var(--text);
-    padding:8px 0;
-  }
-  .input-wrap input::placeholder { color:var(--muted); }
-  .send-btn {
-    background:var(--accent); border:none; cursor:pointer;
-    padding:8px 14px; border-radius:3px;
-    font-family:'Space Mono',monospace; font-size:10px;
-    font-weight:700; color:#fff; letter-spacing:1px;
-    text-transform:uppercase;
-    transition: background .2s, transform .1s;
-  }
-  .send-btn:active { transform:scale(0.95); background:#a02a58; }
-
-  /* ── ACTIONS ── */
-  .actions {
-    position:relative; z-index:5;
-    padding: 0 16px;
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:8px;
-  }
-  .action-btn {
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:4px;
-    padding:14px 10px;
-    cursor:pointer;
-    display:flex; flex-direction:column; align-items:center; gap:6px;
-    transition: border-color .2s, background .2s, transform .1s;
-    position:relative; overflow:hidden;
-  }
-  .action-btn::before {
-    content:''; position:absolute; inset:0;
-    background:var(--glow2);
-    opacity:0; transition:opacity .2s;
-  }
-  .action-btn:active { transform:scale(0.97); }
-  .action-btn:active::before { opacity:1; }
-  .action-btn.active {
-    border-color:var(--accent);
-    background:rgba(201,57,110,0.08);
-  }
-  .action-icon {
-    font-size:22px; line-height:1;
-    filter: drop-shadow(0 0 6px var(--glow));
-  }
-  .action-label {
-    font-size:9px; letter-spacing:2px;
-    color:var(--muted); text-transform:uppercase;
-    text-align:center; line-height:1.3;
-  }
-  .action-btn.active .action-label { color:var(--accent2); }
-
-  /* ── PANEL (tone/stems/lyrics) ── */
-  .panel {
-    position:relative; z-index:5;
-    margin:12px 16px 0;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:4px;
-    overflow:hidden;
-    max-height:0; transition:max-height .35s ease;
-  }
-  .panel.open { max-height:500px; }
-  .panel-inner { padding:16px; }
-
-  /* ── TONE ── */
-  .tone-source {
-    display:flex; gap:6px; margin-bottom:14px;
-  }
-  .src-btn {
-    flex:1; padding:8px; border:1px solid var(--border);
-    background:none; cursor:pointer; border-radius:3px;
-    font-family:'Space Mono',monospace; font-size:9px;
-    letter-spacing:2px; color:var(--muted); text-transform:uppercase;
-    transition:.2s;
-  }
-  .src-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(212,168,83,0.08); }
-
-  .semitone-label {
-    font-size:9px; letter-spacing:3px; color:var(--muted);
-    text-transform:uppercase; margin-bottom:10px; text-align:center;
-  }
-  .tone-grid {
-    display:grid; grid-template-columns:repeat(4,1fr); gap:5px;
-    margin-bottom:6px;
-  }
-  .tone-btn {
-    padding:10px 4px; border:1px solid var(--border);
-    background:none; cursor:pointer; border-radius:3px;
-    font-family:'Space Mono',monospace; font-size:11px;
-    color:var(--text); text-align:center;
-    transition:.15s;
-  }
-  .tone-btn:hover { border-color:var(--accent); color:var(--accent2); }
-  .tone-btn:active { background:rgba(201,57,110,0.12); transform:scale(0.95); }
-  .tone-btn.down { color:#7ab8f5; border-color:rgba(122,184,245,0.3); }
-  .tone-btn.up   { color:#f5a07a; border-color:rgba(245,160,122,0.3); }
-
-  /* ── STEMS ── */
-  .stem-row {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:12px 0; border-bottom:1px solid var(--border);
-  }
-  .stem-row:last-of-type { border-bottom:none; }
-  .stem-info { display:flex; align-items:center; gap:10px; }
-  .stem-icon { font-size:18px; }
-  .stem-name {
-    font-family:'Cormorant Garamond',serif;
-    font-size:16px; color:var(--text);
-  }
-  .toggle {
-    width:42px; height:24px;
-    background:var(--border); border-radius:12px;
-    position:relative; cursor:pointer;
-    transition:background .2s;
-    border:none; outline:none;
-  }
-  .toggle.on { background:var(--accent); }
-  .toggle::after {
-    content:''; position:absolute;
-    top:3px; left:3px;
-    width:18px; height:18px;
-    background:#fff; border-radius:50%;
-    transition:transform .2s;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-  }
-  .toggle.on::after { transform:translateX(18px); }
-
-  .mix-btn {
-    width:100%; margin-top:14px;
-    padding:13px; background:var(--accent);
-    border:none; cursor:pointer; border-radius:4px;
-    font-family:'Space Mono',monospace; font-size:11px;
-    font-weight:700; color:#fff; letter-spacing:2px;
-    text-transform:uppercase;
-    box-shadow:0 4px 20px var(--glow);
-    transition:.2s;
-  }
-  .mix-btn:active { transform:scale(0.97); }
-
-  /* ── LYRICS ── */
-  .lyrics-text {
-    font-family:'Cormorant Garamond',serif;
-    font-size:15px; line-height:1.9;
-    color:var(--text);
-    max-height:260px; overflow-y:auto;
-    padding-right:6px;
-  }
-  .lyrics-text::-webkit-scrollbar { width:2px; }
-  .lyrics-text::-webkit-scrollbar-thumb { background:var(--accent); }
-  .lyrics-section-label {
-    font-family:'Space Mono',monospace;
-    font-size:9px; letter-spacing:3px;
-    color:var(--accent); text-transform:uppercase;
-    margin:12px 0 4px;
-  }
-
-  /* ── PROGRESS ── */
-  .progress-bar {
-    position:relative; z-index:5;
-    margin:12px 16px 0;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:4px;
-    padding:12px 14px;
-    display:none;
-  }
-  .progress-bar.visible { display:block; }
-  .progress-label {
-    font-size:9px; letter-spacing:3px; color:var(--muted);
-    text-transform:uppercase; margin-bottom:8px;
-  }
-  .progress-track {
-    height:3px; background:var(--border); border-radius:2px; overflow:hidden;
-  }
-  .progress-fill {
-    height:100%; background:linear-gradient(90deg,var(--accent),var(--gold));
-    border-radius:2px; width:0%;
-    transition:width .4s ease;
-    box-shadow:0 0 8px var(--glow);
-  }
-  .progress-step {
-    font-family:'Cormorant Garamond',serif;
-    font-style:italic; font-size:13px;
-    color:var(--accent2); margin-top:6px;
-  }
-
-  /* ── OLH ── */
-  .olh-section {
-    position:relative; z-index:5;
-    margin:12px 16px 0;
-  }
-  .olh-toggle-btn {
-    width:100%; padding:12px;
-    background:none; border:1px solid var(--border);
-    border-radius:4px; cursor:pointer;
-    font-family:'Space Mono',monospace; font-size:9px;
-    letter-spacing:3px; color:var(--muted); text-transform:uppercase;
-    transition:.2s; display:flex; align-items:center; justify-content:center; gap:8px;
-  }
-  .olh-toggle-btn:hover { border-color:var(--gold); color:var(--gold); }
-
-  /* ── FOOTER ── */
-  .footer {
-    position:relative; z-index:5;
-    text-align:center;
-    padding:20px 16px 28px;
-    font-size:9px; letter-spacing:2px;
-    color:var(--muted); text-transform:uppercase;
-  }
-  .footer span { color:var(--accent); }
-
-  /* ── DIVIDER ── */
-  .divider {
-    position:relative; z-index:5;
-    margin:12px 16px;
-    height:1px; background:var(--border);
-  }
-
-  /* ── TOAST ── */
-  .toast {
-    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px);
-    background:var(--card); border:1px solid var(--accent);
-    border-radius:4px; padding:10px 20px;
-    font-size:11px; color:var(--accent2);
-    box-shadow:0 8px 32px rgba(0,0,0,.5), 0 0 20px var(--glow);
-    transition:transform .3s ease;
-    z-index:100; white-space:nowrap;
-  }
-  .toast.show { transform:translateX(-50%) translateY(0); }
-
-  /* ── PULSE animation ── */
   @keyframes pulse {
     0%,100%{box-shadow:0 0 0 2px var(--border),0 0 40px var(--glow),0 8px 32px rgba(0,0,0,.6)}
     50%{box-shadow:0 0 0 2px var(--accent),0 0 60px rgba(201,57,110,.35),0 8px 32px rgba(0,0,0,.6)}
   }
   .vinyl.processing { animation:pulse 1.5s ease infinite; }
 
-  /* ── FILE upload hint ── */
-  .upload-hint {
-    position:relative; z-index:5;
-    margin: 6px 16px 0;
-    text-align:center;
-    font-size:9px; letter-spacing:2px; color:var(--muted);
-    text-transform:uppercase;
+  .song-display { position:relative; z-index:5; text-align:center; padding:0 20px 16px; min-height:56px; }
+  .song-title { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:var(--text); line-height:1.2; margin-bottom:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .song-status { font-size:10px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; }
+  .song-status.active { color:var(--accent2); }
+
+  .input-section { position:relative; z-index:5; padding:0 16px 12px; }
+  .input-wrap { display:flex; gap:8px; background:var(--card); border:1px solid var(--border); border-radius:4px; padding:4px 4px 4px 14px; transition:border-color .2s, box-shadow .2s; }
+  .input-wrap:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px var(--glow2); }
+  .input-wrap input { flex:1; background:none; border:none; outline:none; font-family:'Space Mono',monospace; font-size:12px; color:var(--text); padding:8px 0; }
+  .input-wrap input::placeholder { color:var(--muted); }
+  .send-btn { background:var(--accent); border:none; cursor:pointer; padding:8px 14px; border-radius:3px; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; color:#fff; letter-spacing:1px; text-transform:uppercase; transition:background .2s, transform .1s; }
+  .send-btn:active { transform:scale(0.95); background:#a02a58; }
+  .upload-hint { position:relative; z-index:5; margin:6px 16px 0; text-align:center; font-size:9px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; }
+
+  .actions { position:relative; z-index:5; padding:0 16px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .action-btn { background:var(--card); border:1px solid var(--border); border-radius:4px; padding:14px 10px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; transition:border-color .2s, background .2s, transform .1s; position:relative; overflow:hidden; }
+  .action-btn::before { content:''; position:absolute; inset:0; background:var(--glow2); opacity:0; transition:opacity .2s; }
+  .action-btn:active { transform:scale(0.97); }
+  .action-btn:active::before { opacity:1; }
+  .action-btn.active { border-color:var(--accent); background:rgba(201,57,110,0.08); }
+  .action-icon { font-size:22px; line-height:1; filter:drop-shadow(0 0 6px var(--glow)); }
+  .action-label { font-size:9px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; text-align:center; line-height:1.3; }
+  .action-btn.active .action-label { color:var(--accent2); }
+
+  .panel { position:relative; z-index:5; margin:12px 16px 0; background:var(--card); border:1px solid var(--border); border-radius:4px; overflow:hidden; max-height:0; transition:max-height .35s ease; }
+  .panel.open { max-height:500px; }
+  .panel-inner { padding:16px; }
+
+  .tone-source { display:flex; gap:6px; margin-bottom:14px; }
+  .src-btn { flex:1; padding:8px; border:1px solid var(--border); background:none; cursor:pointer; border-radius:3px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; transition:.2s; }
+  .src-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(212,168,83,0.08); }
+  .semitone-label { font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-bottom:10px; text-align:center; }
+  .tone-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-bottom:6px; }
+  .tone-btn { padding:10px 4px; border:1px solid var(--border); background:none; cursor:pointer; border-radius:3px; font-family:'Space Mono',monospace; font-size:11px; color:var(--text); text-align:center; transition:.15s; }
+  .tone-btn:active { background:rgba(201,57,110,0.12); transform:scale(0.95); }
+  .tone-btn.down { color:#7ab8f5; border-color:rgba(122,184,245,0.3); }
+  .tone-btn.up   { color:#f5a07a; border-color:rgba(245,160,122,0.3); }
+  .tone-btn.selected { border-color:var(--accent); background:rgba(201,57,110,0.15); }
+
+  .stem-row { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); }
+  .stem-row:last-of-type { border-bottom:none; }
+  .stem-info { display:flex; align-items:center; gap:10px; }
+  .stem-icon { font-size:18px; }
+  .stem-name { font-family:'Cormorant Garamond',serif; font-size:16px; color:var(--text); }
+  .toggle { width:42px; height:24px; background:var(--border); border-radius:12px; position:relative; cursor:pointer; transition:background .2s; border:none; outline:none; }
+  .toggle.on { background:var(--accent); }
+  .toggle::after { content:''; position:absolute; top:3px; left:3px; width:18px; height:18px; background:#fff; border-radius:50%; transition:transform .2s; box-shadow:0 1px 4px rgba(0,0,0,0.4); }
+  .toggle.on::after { transform:translateX(18px); }
+  .mix-btn { width:100%; margin-top:14px; padding:13px; background:var(--accent); border:none; cursor:pointer; border-radius:4px; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:#fff; letter-spacing:2px; text-transform:uppercase; box-shadow:0 4px 20px var(--glow); transition:.2s; }
+  .mix-btn:active { transform:scale(0.97); }
+
+  .lyrics-text { font-family:'Cormorant Garamond',serif; font-size:15px; line-height:1.9; color:var(--text); max-height:260px; overflow-y:auto; padding-right:6px; }
+  .lyrics-text::-webkit-scrollbar { width:2px; }
+  .lyrics-text::-webkit-scrollbar-thumb { background:var(--accent); }
+  .lyrics-section-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; color:var(--accent); text-transform:uppercase; margin:12px 0 4px; }
+
+  .progress-bar { position:relative; z-index:5; margin:12px 16px 0; background:var(--card); border:1px solid var(--border); border-radius:4px; padding:12px 14px; display:none; }
+  .progress-bar.visible { display:block; }
+  .progress-label { font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+  .progress-track { height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:2px; width:0%; transition:width .4s ease; box-shadow:0 0 8px var(--glow); }
+  .progress-step { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--accent2); margin-top:6px; }
+
+  .olh-section { position:relative; z-index:5; margin:12px 16px 0; }
+  .olh-toggle-btn { width:100%; padding:12px; background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; transition:.2s; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .olh-toggle-btn:hover { border-color:var(--gold); color:var(--gold); }
+
+  .footer { position:relative; z-index:5; text-align:center; padding:20px 16px 28px; font-size:9px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; }
+  .footer span { color:var(--accent); }
+  .divider { position:relative; z-index:5; margin:12px 16px; height:1px; background:var(--border); }
+
+  .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--card); border:1px solid var(--accent); border-radius:4px; padding:10px 20px; font-size:11px; color:var(--accent2); box-shadow:0 8px 32px rgba(0,0,0,.5), 0 0 20px var(--glow); transition:transform .3s ease; z-index:100; white-space:nowrap; }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+
+  /* ── Confirm overlay для действий требующих закрытия ── */
+  .confirm-overlay {
+    position:fixed; inset:0; z-index:200;
+    background:rgba(10,6,8,0.85);
+    display:flex; align-items:flex-end;
+    opacity:0; pointer-events:none; transition:opacity .25s;
   }
+  .confirm-overlay.show { opacity:1; pointer-events:all; }
+  .confirm-sheet {
+    width:100%; background:var(--surface);
+    border:1px solid var(--border); border-bottom:none;
+    border-radius:12px 12px 0 0;
+    padding:20px 16px 32px;
+    transform:translateY(100%); transition:transform .3s ease;
+  }
+  .confirm-overlay.show .confirm-sheet { transform:translateY(0); }
+  .confirm-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--text); margin-bottom:6px; }
+  .confirm-desc { font-size:10px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:20px; }
+  .confirm-btns { display:flex; gap:10px; }
+  .confirm-ok { flex:1; padding:13px; background:var(--accent); border:none; cursor:pointer; border-radius:4px; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:#fff; letter-spacing:2px; text-transform:uppercase; }
+  .confirm-cancel { flex:1; padding:13px; background:none; border:1px solid var(--border); cursor:pointer; border-radius:4px; font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="logo-line">Vocal Studio</div>
   <div class="logo">Helga<span>_Bur_</span></div>
   <div class="logo-sub">AI · Music · Production</div>
 </div>
 
-<!-- VINYL -->
 <div class="vinyl-wrap">
   <div class="vinyl" id="vinyl"></div>
 </div>
 
-<!-- SONG DISPLAY -->
 <div class="song-display">
   <div class="song-title" id="songTitle">Введите название песни</div>
   <div class="song-status" id="songStatus">Ожидание · Ready</div>
 </div>
 
-<!-- INPUT -->
 <div class="input-section">
   <div class="input-wrap">
     <input type="text" id="queryInput" placeholder="Название или YouTube ссылка..." autocomplete="off">
-    <button class="send-btn" onclick="sendSong()">▶ GO</button>
+    <button class="send-btn" id="goBtn" onclick="initSearch()">▶ GO</button>
   </div>
 </div>
 <div class="upload-hint">или отправьте mp3 файл в чат</div>
 
-<!-- PROGRESS -->
 <div class="progress-bar" id="progressBar">
   <div class="progress-label">Обработка</div>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -445,7 +194,6 @@
 
 <div class="divider"></div>
 
-<!-- ACTION BUTTONS -->
 <div class="actions">
   <button class="action-btn" id="btnTone" onclick="togglePanel('tone')">
     <div class="action-icon">🎼</div>
@@ -455,7 +203,7 @@
     <div class="action-icon">🎛</div>
     <div class="action-label">Инструменты</div>
   </button>
-  <button class="action-btn" id="btnLyrics" onclick="togglePanel('lyrics')">
+  <button class="action-btn" id="btnLyrics" onclick="requestLyrics()">
     <div class="action-icon">📝</div>
     <div class="action-label">Текст песни</div>
   </button>
@@ -471,6 +219,7 @@
     <div class="tone-source">
       <button class="src-btn" id="srcOrig" onclick="setToneSource('orig')">🎤 Оригинал</button>
       <button class="src-btn active" id="srcMix" onclick="setToneSource('mix')">🎵 Минус</button>
+      <button class="src-btn" id="srcVocals" onclick="setToneSource('vocals')">🎙 Вокал</button>
     </div>
     <div class="semitone-label">— выбор полутона —</div>
     <div class="tone-grid" id="toneGrid"></div>
@@ -494,7 +243,7 @@
       </div>
       <button class="toggle on" id="toggleInstrumental" onclick="toggleStem('instrumental')"></button>
     </div>
-    <button class="mix-btn" onclick="createMix()">🎵 Создать микс</button>
+    <button class="mix-btn" onclick="initMix()">🎵 Создать микс</button>
   </div>
 </div>
 
@@ -503,134 +252,243 @@
   <div class="panel-inner">
     <div class="lyrics-text" id="lyricsText">
       <span style="color:var(--muted);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;">
-        Сначала получите минус песни
+        Нажмите «Текст песни» — бот пришлёт в чат
       </span>
     </div>
   </div>
 </div>
 
-<!-- OLH SECTION -->
 <div class="olh-section">
-  <button class="olh-toggle-btn" onclick="openOlh()">
+  <button class="olh-toggle-btn" onclick="initOlh()">
     <span>✦</span> Подбор песен Ольханского <span>✦</span>
   </button>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   Helga_Bur_ · Vocal Studio · <span>2025</span>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- CONFIRM SHEET — для действий которые закрывают приложение -->
+<div class="confirm-overlay" id="confirmOverlay" onclick="closeConfirm(event)">
+  <div class="confirm-sheet">
+    <div class="confirm-title" id="confirmTitle">Отправить запрос?</div>
+    <div class="confirm-desc" id="confirmDesc">Приложение закроется — результат придёт в чат</div>
+    <div class="confirm-btns">
+      <button class="confirm-cancel" onclick="hideConfirm()">Отмена</button>
+      <button class="confirm-ok" id="confirmOkBtn" onclick="confirmAction()">Отправить</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ── Telegram WebApp Init ──
 const tg = window.Telegram?.WebApp;
-const BOT_TOKEN = "8958719693:AAF9KSW4zxLJWTsfOqSWMrH6q7SCYuTaC58";
-let chatId = null;
 
 if (tg) {
   tg.ready();
   tg.expand();
-  tg.setHeaderColor('#0a0608');
-  tg.setBackgroundColor('#0a0608');
-  // Получаем chat_id пользователя
-  chatId = tg.initDataUnsafe?.user?.id || null;
+  tg.setHeaderColor?.('#0a0608');
+  tg.setBackgroundColor?.('#0a0608');
+  // Включаем BackButton для закрытия панелей
+  tg.BackButton?.onClick(() => {
+    if (currentPanel) {
+      closeAllPanels();
+    } else {
+      tg.close();
+    }
+  });
 }
+
+// ── ГЛАВНОЕ ПРАВИЛО АРХИТЕКТУРЫ ──
+// tg.sendData(JSON.stringify(data)) — ЕДИНСТВЕННЫЙ способ отправки.
+// Бот получает через: MessageHandler(filters.StatusUpdate.WEB_APP_DATA, handle_webapp_data)
+// МИНУС: закрывает приложение. Поэтому:
+// - Быстрые UI-действия (выбор источника, переключение стемов) — только в state, не отправляем сразу
+// - Тяжёлые операции (search, tone, mix, lyrics) — показываем confirm sheet, потом sendData
 
 // ── STATE ──
 let currentPanel = null;
 let toneSource = 'mix';
 let stemState = { vocals: false, instrumental: true };
-let songLoaded = false;
+let pendingAction = null; // данные ожидающие подтверждения
 
 // ── TONE GRID ──
 (function buildToneGrid() {
   const grid = document.getElementById('toneGrid');
-  const vals = [-6,-5,-4,-3,-2,-1,+1,+2,+3,+4,+5,+6];
-  vals.forEach(v => {
+  [-6,-5,-4,-3,-2,-1,+1,+2,+3,+4,+5,+6].forEach(v => {
     const b = document.createElement('button');
     b.className = 'tone-btn ' + (v < 0 ? 'down' : 'up');
     b.textContent = (v > 0 ? '+' : '') + v;
-    b.onclick = () => applyTone(v);
+    b.dataset.val = v;
+    b.onclick = () => initTone(v);
     grid.appendChild(b);
   });
 })();
 
 // ── PANELS ──
-function togglePanel(name) {
-  const panels = {tone:'panelTone',stems:'panelStems',lyrics:'panelLyrics'};
-  const btns   = {tone:'btnTone',stems:'btnStems',lyrics:'btnLyrics'};
-  if (currentPanel === name) {
-    document.getElementById(panels[name]).classList.remove('open');
-    document.getElementById(btns[name]).classList.remove('active');
-    currentPanel = null;
-    return;
-  }
-  // close all
-  Object.keys(panels).forEach(k => {
-    document.getElementById(panels[k]).classList.remove('open');
-    document.getElementById(btns[k]).classList.remove('active');
+function closeAllPanels() {
+  ['tone','stems','lyrics'].forEach(n => {
+    document.getElementById('panel' + n.charAt(0).toUpperCase() + n.slice(1))?.classList.remove('open');
+    document.getElementById('btn' + n.charAt(0).toUpperCase() + n.slice(1))?.classList.remove('active');
   });
-  document.getElementById(panels[name]).classList.add('open');
-  document.getElementById(btns[name]).classList.add('active');
-  currentPanel = name;
-
-  if (name === 'lyrics' && songLoaded) {
-    sendToBot({ action: 'lyrics' });
-  }
+  currentPanel = null;
+  tg?.BackButton?.hide();
 }
 
-// ── TONE ──
+function togglePanel(name) {
+  const panelId = 'panel' + name.charAt(0).toUpperCase() + name.slice(1);
+  const btnId   = 'btn'   + name.charAt(0).toUpperCase() + name.slice(1);
+  if (currentPanel === name) { closeAllPanels(); return; }
+  closeAllPanels();
+  document.getElementById(panelId).classList.add('open');
+  document.getElementById(btnId).classList.add('active');
+  currentPanel = name;
+  tg?.BackButton?.show();
+}
+
+// ── TONE SOURCE — только state, без sendData ──
 function setToneSource(src) {
   toneSource = src;
-  document.getElementById('srcOrig').classList.toggle('active', src === 'orig');
-  document.getElementById('srcMix').classList.toggle('active', src === 'mix');
-  sendToBot({ action: 'tonesrc', source: src });
+  ['orig','mix','vocals'].forEach(s =>
+    document.getElementById('src' + s.charAt(0).toUpperCase() + s.slice(1))
+      ?.classList.toggle('active', s === src)
+  );
+  haptic('selection_change');
 }
 
-async function applyTone(semitones) {
-  if (!songLoaded) { showToast('⚠️ Сначала получите минус'); return; }
-  await sendToBot({ action: 'tone', semitones, source: toneSource });
-  showToast('🎼 Тональность ' + (semitones > 0 ? '+' : '') + semitones);
-  startProgress(['Меняю тональность...', 'Применяю rubberband...', 'Почти готово...'], 12000);
+// ── TONE — показываем confirm ──
+function initTone(semitones) {
+  const sign = semitones > 0 ? '+' : '';
+  const srcLabel = { orig:'Оригинал', mix:'Минус', vocals:'Вокал' }[toneSource];
+  // Подсвечиваем выбранный полутон
+  document.querySelectorAll('.tone-btn').forEach(b => {
+    b.classList.toggle('selected', parseInt(b.dataset.val) === semitones);
+  });
+  haptic('impact', 'medium');
+  showConfirm(
+    `Тональность ${sign}${semitones}`,
+    `Источник: ${srcLabel} · результат придёт в чат`,
+    { action: 'tone', semitones, source: toneSource }
+  );
 }
 
-// ── STEMS ──
+// ── STEM TOGGLE — только state, без sendData ──
 function toggleStem(stem) {
   stemState[stem] = !stemState[stem];
-  document.getElementById('toggle' + stem.charAt(0).toUpperCase() + stem.slice(1))
-    .classList.toggle('on', stemState[stem]);
+  const id = 'toggle' + stem.charAt(0).toUpperCase() + stem.slice(1);
+  document.getElementById(id)?.classList.toggle('on', stemState[stem]);
+  haptic('selection_change');
 }
 
-async function createMix() {
-  if (!songLoaded) { showToast('⚠️ Сначала получите минус'); return; }
+// ── MIX — показываем confirm ──
+function initMix() {
   const excluded = Object.keys(stemState).filter(k => !stemState[k]);
-  await sendToBot({ action: 'mix', excluded });
-  showToast('🎛 Создаю микс...');
-  startProgress(['Микширую треки...', 'Убираю выбранные дорожки...', 'Финальный рендер...'], 20000);
+  const exclLabel = excluded.length
+    ? excluded.map(e => ({vocals:'Вокал', instrumental:'Инструменты'}[e]||e)).join(', ')
+    : 'ничего';
+  haptic('impact', 'medium');
+  showConfirm(
+    'Создать микс',
+    `Убрать: ${exclLabel} · результат придёт в чат`,
+    { action: 'mix', excluded }
+  );
 }
 
-// ── SONG INPUT ──
-async function sendSong() {
+// ── SEARCH — показываем confirm ──
+function initSearch() {
   const q = document.getElementById('queryInput').value.trim();
-  if (!q) { showToast('⚠️ Введите название'); return; }
-  await sendToBot({ action: 'search', query: q });
-  document.getElementById('queryInput').value = '';
-  setStatus(q, 'Загружаю...', true);
-  startProgress([
-    'Ищу на YouTube...',
-    'Скачиваю трек...',
-    'Делаю минус (AI)...',
-    'Разделяю вокал...',
-    'Отправляю файлы...'
-  ], 240000);
+  if (!q) { showToast('⚠️ Введите название'); haptic('error'); return; }
+  haptic('impact', 'heavy');
+  showConfirm(
+    `Найти: ${q}`,
+    'Скачает трек и сделает минус · займёт ~2–4 мин',
+    { action: 'search', query: q }
+  );
 }
 
 document.getElementById('queryInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') sendSong();
+  if (e.key === 'Enter') initSearch();
 });
+
+// ── LYRICS — sendData напрямую ──
+function requestLyrics() {
+  haptic('impact', 'light');
+  showConfirm(
+    'Текст песни',
+    'Бот найдёт и пришлёт текст в чат',
+    { action: 'lyrics' }
+  );
+  togglePanel('lyrics');
+}
+
+// ── OLH ──
+function initOlh() {
+  haptic('impact', 'medium');
+  showConfirm(
+    'Подбор Ольханского',
+    'Открыть подбор песен в чате',
+    { action: 'olh_start' }
+  );
+}
+
+// ── DONE — закрываем без confirm ──
+function sendDone() {
+  haptic('impact', 'light');
+  sendData({ action: 'done' });
+}
+
+// ── CONFIRM SHEET ──
+function showConfirm(title, desc, actionData) {
+  pendingAction = actionData;
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmDesc').textContent = desc;
+  document.getElementById('confirmOverlay').classList.add('show');
+}
+
+function hideConfirm() {
+  document.getElementById('confirmOverlay').classList.remove('show');
+  pendingAction = null;
+}
+
+function closeConfirm(e) {
+  if (e.target === document.getElementById('confirmOverlay')) hideConfirm();
+}
+
+function confirmAction() {
+  if (!pendingAction) return;
+  const data = pendingAction;
+  hideConfirm();
+
+  if (data.action === 'search') {
+    document.getElementById('queryInput').value = '';
+    setStatus(data.query, 'Отправлено · ждите в чате', true);
+  }
+
+  sendData(data);
+}
+
+// ── SEND DATA — единственный правильный способ ──
+function sendData(data) {
+  if (tg?.sendData) {
+    tg.sendData(JSON.stringify(data));
+    // sendData закрывает приложение — код ниже не выполнится
+  } else {
+    // DEV режим (открыт в браузере, не в Telegram)
+    console.log('[DEV] sendData:', data);
+    showToast('DEV: ' + data.action);
+  }
+}
+
+// ── HAPTIC FEEDBACK ──
+function haptic(type, style) {
+  if (!tg?.HapticFeedback) return;
+  if (type === 'impact')           tg.HapticFeedback.impactOccurred(style || 'medium');
+  else if (type === 'selection_change') tg.HapticFeedback.selectionChanged();
+  else if (type === 'error')       tg.HapticFeedback.notificationOccurred('error');
+  else if (type === 'success')     tg.HapticFeedback.notificationOccurred('success');
+}
 
 // ── STATUS ──
 function setStatus(title, status, processing=false) {
@@ -640,124 +498,6 @@ function setStatus(title, status, processing=false) {
   el.className = 'song-status' + (processing ? ' active' : '');
   document.getElementById('vinyl').classList.toggle('spinning', processing);
   document.getElementById('vinyl').classList.toggle('processing', processing);
-}
-
-// ── PROGRESS ──
-function startProgress(steps, totalMs) {
-  const bar = document.getElementById('progressBar');
-  const fill = document.getElementById('progressFill');
-  const step = document.getElementById('progressStep');
-  bar.classList.add('visible');
-  fill.style.width = '0%';
-  let idx = 0;
-  const interval = totalMs / steps.length;
-  step.textContent = steps[0];
-  const timer = setInterval(() => {
-    idx++;
-    if (idx >= steps.length) { clearInterval(timer); return; }
-    step.textContent = steps[idx];
-    fill.style.width = ((idx / steps.length) * 95) + '%';
-  }, interval);
-  // auto-hide (bot sends real result)
-  window._progressTimer = timer;
-}
-
-function hideProgress() {
-  const bar = document.getElementById('progressBar');
-  const fill = document.getElementById('progressFill');
-  fill.style.width = '100%';
-  setTimeout(() => bar.classList.remove('visible'), 600);
-  if (window._progressTimer) clearInterval(window._progressTimer);
-}
-
-// ── DONE ──
-function sendDone() {
-  sendToBot({ action: 'done' });
-  setStatus('Введите название песни', 'Ожидание · Ready', false);
-  songLoaded = false;
-  hideProgress();
-  showToast('✅ Готово!');
-}
-
-// ── OLH ──
-function openOlh() {
-  sendToBot({ action: 'olh_start' });
-  showToast('🔍 Открываю подбор...');
-}
-
-// ── SEND TO BOT через Bot API ──
-async function sendToBot(data) {
-  if (!chatId && tg) {
-    chatId = tg.initDataUnsafe?.user?.id || null;
-  }
-  if (!chatId) {
-    console.log('[DEV] sendToBot:', data);
-    return;
-  }
-
-  // Формируем читаемое сообщение для бота
-  let text = '';
-  const action = data.action;
-
-  if (action === 'search') {
-    text = data.query;
-  } else if (action === 'tone') {
-    const sign = data.semitones > 0 ? '+' : '';
-    const src = data.source === 'orig' ? 'оригинал' : data.source === 'vocals' ? 'вокал' : 'минус';
-    text = `/tone_${sign}${data.semitones}_${data.source}`;
-  } else if (action === 'mix') {
-    const excl = data.excluded.length ? data.excluded.join(',') : 'none';
-    text = `/mix_${excl}`;
-  } else if (action === 'lyrics') {
-    text = '/lyrics';
-  } else if (action === 'olh_start') {
-    text = '/olh';
-  } else if (action === 'done') {
-    text = '/done';
-  } else {
-    text = JSON.stringify(data);
-  }
-
-  try {
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text: text })
-    });
-  } catch(e) {
-    console.error('sendToBot error:', e);
-    showToast('❌ Ошибка связи с ботом');
-  }
-}
-
-// ── RECEIVE FROM BOT (via URL params for demo / real use via TG) ──
-function onBotMessage(msg) {
-  if (msg.type === 'song_ready') {
-    songLoaded = true;
-    setStatus(msg.title, '✓ Готово · Минус получен', false);
-    hideProgress();
-    if (msg.lyrics) setLyrics(msg.lyrics);
-  }
-  if (msg.type === 'lyrics') {
-    setLyrics(msg.text);
-  }
-  if (msg.type === 'error') {
-    setStatus('Ошибка', msg.text, false);
-    hideProgress();
-    showToast('❌ ' + msg.text);
-  }
-}
-
-function setLyrics(text) {
-  const el = document.getElementById('lyricsText');
-  // Parse sections
-  const html = text
-    .replace(/🎬 Интро/g, '<div class="lyrics-section-label">🎬 Интро</div>')
-    .replace(/🎵 Куплет (\d+)/g, '<div class="lyrics-section-label">🎵 Куплет $1</div>')
-    .replace(/🔥 Припев/g, '<div class="lyrics-section-label">🔥 Припев</div>')
-    .replace(/🌉 Мост/g, '<div class="lyrics-section-label">🌉 Мост</div>')
-    .replace(/\n/g, '<br>');
-  el.innerHTML = html;
 }
 
 // ── TOAST ──
@@ -770,13 +510,11 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// ── DEV: simulate song ready ──
+// ── DEV preview (только в браузере) ──
 if (!tg) {
-  setTimeout(() => {
-    songLoaded = true;
-    setStatus('Магомаев — Синяя вечность', '✓ Готово · Минус получен', false);
-    hideProgress();
-  }, 3000);
+  document.body.style.maxWidth = '390px';
+  document.body.style.margin = '0 auto';
+  showToast('DEV режим · не в Telegram');
 }
 </script>
 </body>
