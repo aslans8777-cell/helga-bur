@@ -527,11 +527,16 @@
 <script>
 // ── Telegram WebApp Init ──
 const tg = window.Telegram?.WebApp;
+const BOT_TOKEN = "8958719693:AAF9KSW4zxLJWTsfOqSWMrH6q7SCYuTaC58";
+let chatId = null;
+
 if (tg) {
   tg.ready();
   tg.expand();
   tg.setHeaderColor('#0a0608');
   tg.setBackgroundColor('#0a0608');
+  // Получаем chat_id пользователя
+  chatId = tg.initDataUnsafe?.user?.id || null;
 }
 
 // ── STATE ──
@@ -585,9 +590,9 @@ function setToneSource(src) {
   sendToBot({ action: 'tonesrc', source: src });
 }
 
-function applyTone(semitones) {
+async function applyTone(semitones) {
   if (!songLoaded) { showToast('⚠️ Сначала получите минус'); return; }
-  sendToBot({ action: 'tone', semitones, source: toneSource });
+  await sendToBot({ action: 'tone', semitones, source: toneSource });
   showToast('🎼 Тональность ' + (semitones > 0 ? '+' : '') + semitones);
   startProgress(['Меняю тональность...', 'Применяю rubberband...', 'Почти готово...'], 12000);
 }
@@ -599,19 +604,19 @@ function toggleStem(stem) {
     .classList.toggle('on', stemState[stem]);
 }
 
-function createMix() {
+async function createMix() {
   if (!songLoaded) { showToast('⚠️ Сначала получите минус'); return; }
   const excluded = Object.keys(stemState).filter(k => !stemState[k]);
-  sendToBot({ action: 'mix', excluded });
+  await sendToBot({ action: 'mix', excluded });
   showToast('🎛 Создаю микс...');
   startProgress(['Микширую треки...', 'Убираю выбранные дорожки...', 'Финальный рендер...'], 20000);
 }
 
 // ── SONG INPUT ──
-function sendSong() {
+async function sendSong() {
   const q = document.getElementById('queryInput').value.trim();
   if (!q) { showToast('⚠️ Введите название'); return; }
-  sendToBot({ action: 'search', query: q });
+  await sendToBot({ action: 'search', query: q });
   document.getElementById('queryInput').value = '';
   setStatus(q, 'Загружаю...', true);
   startProgress([
@@ -680,12 +685,48 @@ function openOlh() {
   showToast('🔍 Открываю подбор...');
 }
 
-// ── SEND TO BOT ──
-function sendToBot(data) {
-  if (tg) {
-    tg.sendData(JSON.stringify(data));
-  } else {
+// ── SEND TO BOT через Bot API ──
+async function sendToBot(data) {
+  if (!chatId && tg) {
+    chatId = tg.initDataUnsafe?.user?.id || null;
+  }
+  if (!chatId) {
     console.log('[DEV] sendToBot:', data);
+    return;
+  }
+
+  // Формируем читаемое сообщение для бота
+  let text = '';
+  const action = data.action;
+
+  if (action === 'search') {
+    text = data.query;
+  } else if (action === 'tone') {
+    const sign = data.semitones > 0 ? '+' : '';
+    const src = data.source === 'orig' ? 'оригинал' : data.source === 'vocals' ? 'вокал' : 'минус';
+    text = `/tone_${sign}${data.semitones}_${data.source}`;
+  } else if (action === 'mix') {
+    const excl = data.excluded.length ? data.excluded.join(',') : 'none';
+    text = `/mix_${excl}`;
+  } else if (action === 'lyrics') {
+    text = '/lyrics';
+  } else if (action === 'olh_start') {
+    text = '/olh';
+  } else if (action === 'done') {
+    text = '/done';
+  } else {
+    text = JSON.stringify(data);
+  }
+
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text: text })
+    });
+  } catch(e) {
+    console.error('sendToBot error:', e);
+    showToast('❌ Ошибка связи с ботом');
   }
 }
 
